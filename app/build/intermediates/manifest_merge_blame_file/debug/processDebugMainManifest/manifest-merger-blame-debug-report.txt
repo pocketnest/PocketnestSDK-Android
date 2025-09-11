@@ -1,0 +1,167 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="com.pocketnest.ssotest"
+4    android:versionCode="1"
+5    android:versionName="1.0" >
+6
+7    <uses-sdk
+8        android:minSdkVersion="24"
+9        android:targetSdkVersion="35" />
+10
+11    <uses-permission android:name="android.permission.INTERNET" />
+11-->/Users/a.mochanovskiy/Projects/Pocketnest/PocketnestAndroidSSO/app/src/main/AndroidManifest.xml:4:5-67
+11-->/Users/a.mochanovskiy/Projects/Pocketnest/PocketnestAndroidSSO/app/src/main/AndroidManifest.xml:4:22-64
+12
+13    <permission
+13-->[androidx.core:core:1.13.1] /Users/a.mochanovskiy/.gradle/caches/9.0-milestone-1/transforms/f5e91bcdc09ba2865a80e399c0d03640/transformed/core-1.13.1/AndroidManifest.xml:22:5-24:47
+14        android:name="com.pocketnest.ssotest.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
+14-->[androidx.core:core:1.13.1] /Users/a.mochanovskiy/.gradle/caches/9.0-milestone-1/transforms/f5e91bcdc09ba2865a80e399c0d03640/transformed/core-1.13.1/AndroidManifest.xml:23:9-81
+15        android:protectionLevel="signature" />
+15-->[androidx.core:core:1.13.1] /Users/a.mochanovskiy/.gradle/caches/9.0-milestone-1/transforms/f5e91bcdc09ba2865a80e399c0d03640/transformed/core-1.13.1/AndroidManifest.xml:24:9-44
+16
+17    <uses-permission android:name="com.pocketnest.ssotest.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
+17-->[androidx.core:core:1.13.1] /Users/a.mochanovskiy/.gradle/caches/9.0-milestone-1/transforms/f5e91bcdc09ba2865a80e399c0d03640/transformed/core-1.13.1/AndroidManifest.xml:26:5-97
+17-->[androidx.core:core:1.13.1] /Users/a.mochanovskiy/.gradle/caches/9.0-milestone-1/transforms/f5e91bcdc09ba2865a80e399c0d03640/transformed/core-1.13.1/AndroidManifest.xml:26:22-94
+18
+19    <application
+19-->/Users/a.mochanovskiy/Projects/Pocketnest/PocketnestAndroidSSO/app/src/main/AndroidManifest.xml:6:5-39:19
+20        android:allowBackup="true"
+20-->/Users/a.mochanovskiy/Projects/Pocketnest/PocketnestAndroidSSO/app/src/main/AndroidManifest.xml:9:9-35
+21        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+21-->[androidx.core:core:1.13.1] /Users/a.mochanovskiy/.gradle/caches/9.0-milestone-1/transforms/f5e91bcdc09ba2865a80e399c0d03640/transformed/core-1.13.1/AndroidManifest.xml:28:18-86
+22        android:debuggable="true"
+23        android:extractNativeLibs="false"
+24        android:icon="@mipmap/ic_launcher"
+24-->/Users/a.mochanovskiy/Projects/Pocketnest/PocketnestAndroidSSO/app/src/main/AndroidManifest.xml:11:9-43
+25        android:label="@string/app_name"
+25-->/Users/a.mochanovskiy/Projects/Pocketnest/PocketnestAndroidSSO/app/src/main/AndroidManifest.xml:10:9-41
+26        android:networkSecurityConfig="@xml/network_security_config"
+26-->/Users/a.mochanovskiy/Projects/Pocketnest/PocketnestAndroidSSO/app/src/main/AndroidManifest.xml:7:9-69
+27        android:roundIcon="@mipmap/ic_launcher_round"
+27-->/Users/a.mochanovskiy/Projects/Pocketnest/PocketnestAndroidSSO/app/src/main/AndroidManifest.xml:12:9-54
+28        android:supportsRtl="true"
+28-->/Users/a.mochanovskiy/Projects/Pocketnest/PocketnestAndroidSSO/app/src/main/AndroidManifest.xml:13:9-35
+29        android:testOnly="true"
+30        android:theme="@style/Theme.WebViewSample"
+30-->/Users/a.mochanovskiy/Projects/Pocketnest/PocketnestAndroidSSO/app/src/main/AndroidManifest.xml:14:9-51
+31        android:usesCleartextTraffic="false" >
+31-->/Users/a.mochanovskiy/Projects/Pocketnest/PocketnestAndroidSSO/app/src/main/AndroidManifest.xml:8:9-45
+32        <activity
+32-->/Users/a.mochanovskiy/Projects/Pocketnest/PocketnestAndroidSSO/app/src/main/AndroidManifest.xml:16:9-24:20
+33            android:name="com.pocketnest.ssotest.WebViewActivity"
+33-->/Users/a.mochanovskiy/Projects/Pocketnest/PocketnestAndroidSSO/app/src/main/AndroidManifest.xml:17:13-44
+34            android:exported="true"
+34-->/Users/a.mochanovskiy/Projects/Pocketnest/PocketnestAndroidSSO/app/src/main/AndroidManifest.xml:18:13-36
+35            android:launchMode="singleTask" >
+35-->/Users/a.mochanovskiy/Projects/Pocketnest/PocketnestAndroidSSO/app/src/main/AndroidManifest.xml:19:13-44
+36            <intent-filter>
+36-->/Users/a.mochanovskiy/Projects/Pocketnest/PocketnestAndroidSSO/app/src/main/AndroidManifest.xml:20:13-23:29
+37                <action android:name="android.intent.action.MAIN" />
+37-->/Users/a.mochanovskiy/Projects/Pocketnest/PocketnestAndroidSSO/app/src/main/AndroidManifest.xml:21:17-69
+37-->/Users/a.mochanovskiy/Projects/Pocketnest/PocketnestAndroidSSO/app/src/main/AndroidManifest.xml:21:25-66
+38
+39                <category android:name="android.intent.category.LAUNCHER" />
+39-->/Users/a.mochanovskiy/Projects/Pocketnest/PocketnestAndroidSSO/app/src/main/AndroidManifest.xml:22:17-77
+39-->/Users/a.mochanovskiy/Projects/Pocketnest/PocketnestAndroidSSO/app/src/main/AndroidManifest.xml:22:27-74
+40            </intent-filter>
+41        </activity>
+42        <activity
+42-->/Users/a.mochanovskiy/Projects/Pocketnest/PocketnestAndroidSSO/app/src/main/AndroidManifest.xml:26:9-38:20
+43            android:name="com.pocketnest.ssotest.DeepLinkProxyActivity"
+43-->/Users/a.mochanovskiy/Projects/Pocketnest/PocketnestAndroidSSO/app/src/main/AndroidManifest.xml:27:13-50
+44            android:exported="true"
+44-->/Users/a.mochanovskiy/Projects/Pocketnest/PocketnestAndroidSSO/app/src/main/AndroidManifest.xml:28:13-36
+45            android:noHistory="true"
+45-->/Users/a.mochanovskiy/Projects/Pocketnest/PocketnestAndroidSSO/app/src/main/AndroidManifest.xml:29:13-37
+46            android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen" >
+46-->/Users/a.mochanovskiy/Projects/Pocketnest/PocketnestAndroidSSO/app/src/main/AndroidManifest.xml:30:13-83
+47            <intent-filter>
+47-->/Users/a.mochanovskiy/Projects/Pocketnest/PocketnestAndroidSSO/app/src/main/AndroidManifest.xml:31:13-37:29
+48                <action android:name="android.intent.action.VIEW" />
+48-->/Users/a.mochanovskiy/Projects/Pocketnest/PocketnestAndroidSSO/app/src/main/AndroidManifest.xml:32:17-69
+48-->/Users/a.mochanovskiy/Projects/Pocketnest/PocketnestAndroidSSO/app/src/main/AndroidManifest.xml:32:25-66
+49
+50                <category android:name="android.intent.category.DEFAULT" />
+50-->/Users/a.mochanovskiy/Projects/Pocketnest/PocketnestAndroidSSO/app/src/main/AndroidManifest.xml:33:17-76
+50-->/Users/a.mochanovskiy/Projects/Pocketnest/PocketnestAndroidSSO/app/src/main/AndroidManifest.xml:33:27-73
+51                <category android:name="android.intent.category.BROWSABLE" />
+51-->/Users/a.mochanovskiy/Projects/Pocketnest/PocketnestAndroidSSO/app/src/main/AndroidManifest.xml:34:17-78
+51-->/Users/a.mochanovskiy/Projects/Pocketnest/PocketnestAndroidSSO/app/src/main/AndroidManifest.xml:34:27-75
+52
+53                <data
+53-->/Users/a.mochanovskiy/Projects/Pocketnest/PocketnestAndroidSSO/app/src/main/AndroidManifest.xml:35:17-36:59
+54                    android:host="hosted-link-complete"
+54-->/Users/a.mochanovskiy/Projects/Pocketnest/PocketnestAndroidSSO/app/src/main/AndroidManifest.xml:36:21-56
+55                    android:scheme="pocketnesthostedlink" />
+55-->/Users/a.mochanovskiy/Projects/Pocketnest/PocketnestAndroidSSO/app/src/main/AndroidManifest.xml:35:23-60
+56            </intent-filter>
+57        </activity>
+58
+59        <provider
+59-->[androidx.emoji2:emoji2:1.3.0] /Users/a.mochanovskiy/.gradle/caches/9.0-milestone-1/transforms/f11e632781c5582ee44241674404dcc9/transformed/jetified-emoji2-1.3.0/AndroidManifest.xml:24:9-32:20
+60            android:name="androidx.startup.InitializationProvider"
+60-->[androidx.emoji2:emoji2:1.3.0] /Users/a.mochanovskiy/.gradle/caches/9.0-milestone-1/transforms/f11e632781c5582ee44241674404dcc9/transformed/jetified-emoji2-1.3.0/AndroidManifest.xml:25:13-67
+61            android:authorities="com.pocketnest.ssotest.androidx-startup"
+61-->[androidx.emoji2:emoji2:1.3.0] /Users/a.mochanovskiy/.gradle/caches/9.0-milestone-1/transforms/f11e632781c5582ee44241674404dcc9/transformed/jetified-emoji2-1.3.0/AndroidManifest.xml:26:13-68
+62            android:exported="false" >
+62-->[androidx.emoji2:emoji2:1.3.0] /Users/a.mochanovskiy/.gradle/caches/9.0-milestone-1/transforms/f11e632781c5582ee44241674404dcc9/transformed/jetified-emoji2-1.3.0/AndroidManifest.xml:27:13-37
+63            <meta-data
+63-->[androidx.emoji2:emoji2:1.3.0] /Users/a.mochanovskiy/.gradle/caches/9.0-milestone-1/transforms/f11e632781c5582ee44241674404dcc9/transformed/jetified-emoji2-1.3.0/AndroidManifest.xml:29:13-31:52
+64                android:name="androidx.emoji2.text.EmojiCompatInitializer"
+64-->[androidx.emoji2:emoji2:1.3.0] /Users/a.mochanovskiy/.gradle/caches/9.0-milestone-1/transforms/f11e632781c5582ee44241674404dcc9/transformed/jetified-emoji2-1.3.0/AndroidManifest.xml:30:17-75
+65                android:value="androidx.startup" />
+65-->[androidx.emoji2:emoji2:1.3.0] /Users/a.mochanovskiy/.gradle/caches/9.0-milestone-1/transforms/f11e632781c5582ee44241674404dcc9/transformed/jetified-emoji2-1.3.0/AndroidManifest.xml:31:17-49
+66            <meta-data
+66-->[androidx.lifecycle:lifecycle-process:2.6.2] /Users/a.mochanovskiy/.gradle/caches/9.0-milestone-1/transforms/04de17ce69dfc84e96bc48b0242983cc/transformed/jetified-lifecycle-process-2.6.2/AndroidManifest.xml:29:13-31:52
+67                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
+67-->[androidx.lifecycle:lifecycle-process:2.6.2] /Users/a.mochanovskiy/.gradle/caches/9.0-milestone-1/transforms/04de17ce69dfc84e96bc48b0242983cc/transformed/jetified-lifecycle-process-2.6.2/AndroidManifest.xml:30:17-78
+68                android:value="androidx.startup" />
+68-->[androidx.lifecycle:lifecycle-process:2.6.2] /Users/a.mochanovskiy/.gradle/caches/9.0-milestone-1/transforms/04de17ce69dfc84e96bc48b0242983cc/transformed/jetified-lifecycle-process-2.6.2/AndroidManifest.xml:31:17-49
+69            <meta-data
+69-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/a.mochanovskiy/.gradle/caches/9.0-milestone-1/transforms/620fc287fb47ab2eb39aec31e286efe7/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:29:13-31:52
+70                android:name="androidx.profileinstaller.ProfileInstallerInitializer"
+70-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/a.mochanovskiy/.gradle/caches/9.0-milestone-1/transforms/620fc287fb47ab2eb39aec31e286efe7/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:30:17-85
+71                android:value="androidx.startup" />
+71-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/a.mochanovskiy/.gradle/caches/9.0-milestone-1/transforms/620fc287fb47ab2eb39aec31e286efe7/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:31:17-49
+72        </provider>
+73
+74        <receiver
+74-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/a.mochanovskiy/.gradle/caches/9.0-milestone-1/transforms/620fc287fb47ab2eb39aec31e286efe7/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:34:9-52:20
+75            android:name="androidx.profileinstaller.ProfileInstallReceiver"
+75-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/a.mochanovskiy/.gradle/caches/9.0-milestone-1/transforms/620fc287fb47ab2eb39aec31e286efe7/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:35:13-76
+76            android:directBootAware="false"
+76-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/a.mochanovskiy/.gradle/caches/9.0-milestone-1/transforms/620fc287fb47ab2eb39aec31e286efe7/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:36:13-44
+77            android:enabled="true"
+77-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/a.mochanovskiy/.gradle/caches/9.0-milestone-1/transforms/620fc287fb47ab2eb39aec31e286efe7/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:37:13-35
+78            android:exported="true"
+78-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/a.mochanovskiy/.gradle/caches/9.0-milestone-1/transforms/620fc287fb47ab2eb39aec31e286efe7/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:38:13-36
+79            android:permission="android.permission.DUMP" >
+79-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/a.mochanovskiy/.gradle/caches/9.0-milestone-1/transforms/620fc287fb47ab2eb39aec31e286efe7/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:39:13-57
+80            <intent-filter>
+80-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/a.mochanovskiy/.gradle/caches/9.0-milestone-1/transforms/620fc287fb47ab2eb39aec31e286efe7/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:40:13-42:29
+81                <action android:name="androidx.profileinstaller.action.INSTALL_PROFILE" />
+81-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/a.mochanovskiy/.gradle/caches/9.0-milestone-1/transforms/620fc287fb47ab2eb39aec31e286efe7/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:41:17-91
+81-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/a.mochanovskiy/.gradle/caches/9.0-milestone-1/transforms/620fc287fb47ab2eb39aec31e286efe7/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:41:25-88
+82            </intent-filter>
+83            <intent-filter>
+83-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/a.mochanovskiy/.gradle/caches/9.0-milestone-1/transforms/620fc287fb47ab2eb39aec31e286efe7/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:43:13-45:29
+84                <action android:name="androidx.profileinstaller.action.SKIP_FILE" />
+84-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/a.mochanovskiy/.gradle/caches/9.0-milestone-1/transforms/620fc287fb47ab2eb39aec31e286efe7/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:44:17-85
+84-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/a.mochanovskiy/.gradle/caches/9.0-milestone-1/transforms/620fc287fb47ab2eb39aec31e286efe7/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:44:25-82
+85            </intent-filter>
+86            <intent-filter>
+86-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/a.mochanovskiy/.gradle/caches/9.0-milestone-1/transforms/620fc287fb47ab2eb39aec31e286efe7/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:46:13-48:29
+87                <action android:name="androidx.profileinstaller.action.SAVE_PROFILE" />
+87-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/a.mochanovskiy/.gradle/caches/9.0-milestone-1/transforms/620fc287fb47ab2eb39aec31e286efe7/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:47:17-88
+87-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/a.mochanovskiy/.gradle/caches/9.0-milestone-1/transforms/620fc287fb47ab2eb39aec31e286efe7/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:47:25-85
+88            </intent-filter>
+89            <intent-filter>
+89-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/a.mochanovskiy/.gradle/caches/9.0-milestone-1/transforms/620fc287fb47ab2eb39aec31e286efe7/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:49:13-51:29
+90                <action android:name="androidx.profileinstaller.action.BENCHMARK_OPERATION" />
+90-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/a.mochanovskiy/.gradle/caches/9.0-milestone-1/transforms/620fc287fb47ab2eb39aec31e286efe7/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:50:17-95
+90-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/a.mochanovskiy/.gradle/caches/9.0-milestone-1/transforms/620fc287fb47ab2eb39aec31e286efe7/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:50:25-92
+91            </intent-filter>
+92        </receiver>
+93    </application>
+94
+95</manifest>

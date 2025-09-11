@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:ns1="http://schemas.android.com/tools">
+    <color name="ic_launcher_background">#FFFFFF</color>
+    <color name="purple_40">#6650a4</color>
+    <color name="purple_80">#d0bcff</color>
+    <color name="teal_40">#03dac6</color>
+    <string name="app_name">WebViewSample</string>
+    <style name="Theme.WebViewSample" parent="Theme.Material3.Light.NoActionBar">
+        <item name="colorPrimary">@color/purple_40</item>
+        <item name="colorPrimaryContainer">@color/purple_80</item>
+        <item name="colorSecondary">@color/teal_40</item>
+        <item name="android:statusBarColor" ns1:targetApi="l">?attr/colorPrimary</item>
+    </style>
+</resources>
