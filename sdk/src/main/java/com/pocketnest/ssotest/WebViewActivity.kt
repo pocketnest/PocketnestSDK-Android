@@ -16,7 +16,7 @@ import android.os.Message
 
 private const val REDIRECT_SCHEME = "pocketnesthostedlink"
 // Swap to prod for release builds
-private const val BASE_URL = "http://192.168.0.236:8081/?redirect_uri=$REDIRECT_SCHEME"
+private const val BASE_URL = "http://192.168.1.134:8081/?redirect_uri=$REDIRECT_SCHEME"
 
 class WebViewActivity : ComponentActivity() {
 

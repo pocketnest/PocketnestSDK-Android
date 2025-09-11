@@ -13,4 +13,4 @@ dependencyResolutionManagement {
   }
 }
 rootProject.name = "WebViewSample"
-include(":app")
+include(":app", ":sdk")
