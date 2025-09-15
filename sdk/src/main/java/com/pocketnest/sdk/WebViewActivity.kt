@@ -1,12 +1,11 @@
-package com.pocketnest.ssotest
+package com.pocketnest.sdk
 
 import android.content.Intent
-import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.webkit.*
-import androidx.activity.ComponentActivity
+import androidx.appcompat.app.AppCompatActivity
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -16,9 +15,9 @@ import android.os.Message
 
 private const val REDIRECT_SCHEME = "pocketnesthostedlink"
 // Swap to prod for release builds
-private const val BASE_URL = "http://192.168.1.134:8081/?redirect_uri=$REDIRECT_SCHEME"
+private const val BASE_URL = "http://192.168.1.65:8081/?redirect_uri=$REDIRECT_SCHEME"
 
-class WebViewActivity : ComponentActivity() {
+class WebViewActivity : AppCompatActivity() {
 
     private lateinit var webView: WebView
 
@@ -164,10 +163,10 @@ class WebViewActivity : ComponentActivity() {
     }
 
     // Deep link arrives here when already running (singleTop)
-    override fun onNewIntent(intent: Intent?) {
+    override fun onNewIntent(intent: Intent) {
         super.onNewIntent(intent)
         setIntent(intent)
-        intent?.data?.let { handleDeepLink(it) }
+        intent.data?.let { handleDeepLink(it) }
     }
 
     private fun handleDeepLink(uri: Uri) {

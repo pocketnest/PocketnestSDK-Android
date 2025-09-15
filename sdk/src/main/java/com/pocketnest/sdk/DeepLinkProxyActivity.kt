@@ -1,5 +1,5 @@
 // DeepLinkProxyActivity.kt
-package com.pocketnest.ssotest
+package com.pocketnest.sdk
 
 import android.content.Intent
 import android.os.Bundle

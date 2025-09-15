@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "com.pocketnest.ssotest.app-mergeDebugResources-30:/values-port/values-port.xml",
+            "outputFile": "com.example.sdkexample.app-mergeDebugResources-36:/values-port/values-port.xml",
             "map": [
                 {
-                    "source": "/Users/a.mochanovskiy/.gradle/caches/9.0-milestone-1/transforms/09613876bab01c5aad87ccb91a1e6299/transformed/appcompat-1.7.0/res/values-port/values-port.xml",
+                    "source": "/Users/tuckersteelman/.gradle/caches/9.0-milestone-1/transforms/40b60bbb4c75fe64a5910942cea1fd5d/transformed/appcompat-1.7.1/res/values-port/values-port.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",

@@ -4,6 +4,8 @@
     <application
         android:allowBackup="true"
         android:label="Pocketnest SDK Sample"
+        android:usesCleartextTraffic="true"
+        android:launchMode="singleTop"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
 
         <activity android:name=".MainActivity"

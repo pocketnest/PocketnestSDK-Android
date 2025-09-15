@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "com.pocketnest.ssotest.app-mergeDebugResources-30:/values-w600dp-land-v13/values-w600dp-land-v13.xml",
+            "outputFile": "com.example.sdkexample.app-mergeDebugResources-36:/values-w600dp-land-v13/values-w600dp-land-v13.xml",
             "map": [
                 {
-                    "source": "/Users/a.mochanovskiy/.gradle/caches/9.0-milestone-1/transforms/38aede4dcfae893c730e2f41985dcf07/transformed/material-1.12.0/res/values-w600dp-land-v13/values-w600dp-land-v13.xml",
+                    "source": "/Users/tuckersteelman/.gradle/caches/9.0-milestone-1/transforms/9fbb8b7879285eb696e05f7d1930c87f/transformed/material-1.13.0/res/values-w600dp-land-v13/values-w600dp-land-v13.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",

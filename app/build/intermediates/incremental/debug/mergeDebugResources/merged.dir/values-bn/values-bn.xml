@@ -34,7 +34,6 @@
     <string name="bottomsheet_action_collapse">স্ক্রিনের নিচে অ্যাটাচ করা শিট আড়াল করুন</string>
     <string name="bottomsheet_action_expand">স্ক্রিনের নিচে অ্যাটাচ করা শিট বড় করুন</string>
     <string name="bottomsheet_action_expand_halfway">অর্ধেক প্রসারিত করুন</string>
-    <string name="bottomsheet_drag_handle_clicked">টেনে আনার হ্যান্ডেলে ডবল ট্যাপ করা হয়েছে</string>
     <string name="bottomsheet_drag_handle_content_description">টেনে আনার হ্যান্ডেল</string>
     <string msgid="881409763997275156" name="call_notification_answer_action">"উত্তর দিন"</string>
     <string msgid="8793775615905189152" name="call_notification_answer_video_action">"ভিডিও"</string>
@@ -55,12 +54,16 @@
     <string msgid="7145444925855055364" name="fallback_menu_item_share_link">"লিঙ্ক শেয়ার করুন"</string>
     <string name="icon_content_description">ডায়ালগ আইকন</string>
     <string name="item_view_role_description">ট্যাব</string>
+    <string name="m3_loading_indicator_content_description">লোড করা হচ্ছে</string>
     <string name="material_clock_toggle_content_description">AM অথবা PM বেছে নিন</string>
     <string name="material_hour_24h_suffix">%1$s ঘণ্টা</string>
     <string name="material_hour_selection">ঘণ্টা বেছে নিন</string>
     <string name="material_hour_suffix">%1$sটা বাজে</string>
     <string name="material_minute_selection">মিনিট বেছে নিন</string>
     <string name="material_minute_suffix">%1$s মিনিট</string>
+    <string name="material_slider_range_end">রেঞ্জ শেষ</string>
+    <string name="material_slider_range_start">রেঞ্জ শুরু</string>
+    <string name="material_slider_value">মান</string>
     <string name="material_timepicker_am">AM</string>
     <string name="material_timepicker_clock_mode_description">সময় ইনপুট দেওয়ার জন্য ঘড়ি মোডে যান।</string>
     <string name="material_timepicker_hour">ঘণ্টা</string>
@@ -76,7 +79,7 @@
     <string name="mtrl_exceed_max_badge_number_content_description" ns2:ignore="PluralsCandidate">%1$dটির বেশি নতুন বিজ্ঞপ্তি</string>
     <string name="mtrl_picker_a11y_next_month">আগামী মাসে যান</string>
     <string name="mtrl_picker_a11y_prev_month">আগের মাসে যান</string>
-    <string name="mtrl_picker_announce_current_range_selection">চালু হওয়ার তারিখ বাছুন: %1$s – শেষ হওয়ার তারিখ বাছুন: %2$s</string>
+    <string name="mtrl_picker_announce_current_range_selection">শুরুর তারিখ বাছুন: %1$s – সমাপ্তির তারিখ বাছুন: %2$s</string>
     <string name="mtrl_picker_announce_current_selection">বর্তমান বাছাই: %1$s</string>
     <string name="mtrl_picker_announce_current_selection_none">কোনওটিই নয়</string>
     <string name="mtrl_picker_cancel">বাতিল করুন</string>
@@ -108,9 +111,11 @@
     <string name="mtrl_picker_text_input_year_abbr">y</string>
     <string name="mtrl_picker_today_description">আজ %1$s</string>
     <string name="mtrl_picker_toggle_to_calendar_input_mode">ক্যালেন্ডার ইনপুট মোডে বদল করুন</string>
-    <string name="mtrl_picker_toggle_to_day_selection">Calendar ভিউতে পাল্টাতে ট্যাপ করুন</string>
+    <string name="mtrl_picker_toggle_to_day_selection">ক্যালেন্ডার ভিউতে পাল্টান</string>
     <string name="mtrl_picker_toggle_to_text_input_mode">টেক্সট ইনপুট মোডে বদল করুন</string>
-    <string name="mtrl_picker_toggle_to_year_selection">বার্ষিক ভিউতে পাল্টাতে ট্যাপ করুন</string>
+    <string name="mtrl_picker_toggle_to_year_selection">বছরের ভিউতে পাল্টান</string>
+    <string name="mtrl_picker_toggled_to_day_selection">Calendar ভিউতে পাল্টানো হয়েছে</string>
+    <string name="mtrl_picker_toggled_to_year_selection">বছরের ভিউতে পাল্টানো হয়েছে</string>
     <string name="mtrl_timepicker_cancel">বাতিল করুন</string>
     <string name="mtrl_timepicker_confirm">ঠিক আছে</string>
     <string name="password_toggle_content_description">পাসওয়ার্ড দেখান</string>

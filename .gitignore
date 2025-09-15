@@ -1,1 +1,15 @@
+*.iml
+.gradle/
+build/
+captures/
+output.json
 local.properties
+.idea/
+.idea/*
+*.iws
+*.ipr
+*.idea
+*.iml
+.idea_modules/
+android/app/build/
+android/build/

@@ -1,18 +1,6 @@
 [
     {
-        "merged": "com.pocketnest.ssotest.app-debug-32:/mipmap-anydpi-v26_ic_launcher.xml.flat",
-        "source": "com.pocketnest.ssotest.app-main-34:/mipmap-anydpi-v26/ic_launcher.xml"
-    },
-    {
-        "merged": "com.pocketnest.ssotest.app-debug-32:/xml_network_security_config.xml.flat",
-        "source": "com.pocketnest.ssotest.app-main-34:/xml/network_security_config.xml"
-    },
-    {
-        "merged": "com.pocketnest.ssotest.app-debug-32:/drawable_ic_launcher_foreground.xml.flat",
-        "source": "com.pocketnest.ssotest.app-main-34:/drawable/ic_launcher_foreground.xml"
-    },
-    {
-        "merged": "com.pocketnest.ssotest.app-debug-32:/mipmap-anydpi-v26_ic_launcher_round.xml.flat",
-        "source": "com.pocketnest.ssotest.app-main-34:/mipmap-anydpi-v26/ic_launcher_round.xml"
+        "merged": "com.example.sdkexample.app-debug-38:/layout_activity_main.xml.flat",
+        "source": "com.example.sdkexample.app-main-40:/layout/activity_main.xml"
     }
 ]

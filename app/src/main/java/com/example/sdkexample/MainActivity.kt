@@ -6,7 +6,7 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
 import androidx.activity.ComponentActivity
-import com.pocketnest.ssotest.WebViewActivity
+import com.pocketnest.sdk.WebViewActivity
 import org.json.JSONObject
 
 class MainActivity : ComponentActivity() {
@@ -28,9 +28,9 @@ class MainActivity : ComponentActivity() {
         intent?.data?.let { handleDeepLink(it) }
     }
 
-    override fun onNewIntent(intent: Intent?) {
+    override fun onNewIntent(intent: Intent) {
         super.onNewIntent(intent)
-        intent?.data?.let { handleDeepLink(it) }
+        intent.data?.let { handleDeepLink(it) }
     }
 
     private fun handleDeepLink(uri: Uri) {
