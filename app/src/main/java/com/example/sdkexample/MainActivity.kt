@@ -7,7 +7,11 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.activity.ComponentActivity
 import com.pocketnest.sdk.WebViewActivity
+import com.pocketnest.sdk.Config
 import org.json.JSONObject
+
+private const val REDIRECT_SCHEME = "pocketnesthostedlink"
+private const val BASE_URL = "http://192.168.1.65:8081/?redirect_uri=$REDIRECT_SCHEME"
 
 class MainActivity : ComponentActivity() {
 
@@ -16,6 +20,11 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        Config.init(
+            url = BASE_URL,
+            redirectUrl = REDIRECT_SCHEME
+        )
 
         logTextView = findViewById(R.id.logTextView)
 

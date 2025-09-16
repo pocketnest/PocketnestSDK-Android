@@ -13,23 +13,19 @@ import androidx.core.view.updatePadding
 import org.json.JSONObject
 import android.os.Message
 
-private const val REDIRECT_SCHEME = "pocketnesthostedlink"
-// Swap to prod for release builds
-private const val BASE_URL = "http://192.168.1.65:8081/?redirect_uri=$REDIRECT_SCHEME"
-
 class WebViewActivity : AppCompatActivity() {
 
     private lateinit var webView: WebView
-
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         webView.saveState(outState)
     }
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        val url = Config.requireUrl()
 
         webView = WebView(this)
         setContentView(webView)
@@ -84,7 +80,7 @@ class WebViewActivity : AppCompatActivity() {
         webView.webViewClient = object : WebViewClient() {
             override fun shouldOverrideUrlLoading(view: WebView, request: WebResourceRequest): Boolean {
                 val url = request.url.toString()
-                val isExternal = !url.startsWith(BASE_URL)
+                val isExternal = !url.startsWith(url)
 
                 return if (isExternal) {
                     // Open any external (non-Plaid CDN) links in external browser
@@ -125,7 +121,7 @@ class WebViewActivity : AppCompatActivity() {
         if (savedInstanceState != null) {
             webView.restoreState(savedInstanceState)
         } else {
-            webView.loadUrl(BASE_URL)
+            webView.loadUrl(url)
         }
 
         // If activity started via deep link while app was closed
@@ -170,10 +166,13 @@ class WebViewActivity : AppCompatActivity() {
     }
 
     private fun handleDeepLink(uri: Uri) {
+        val redirectUrl = Config.requireRedirectUrl()
+
         Log.v("WebViewActivity", "Verbose log example")
         Log.d("WebViewActivity", "Received from web: $uri")
         println(uri)
-        if (uri.scheme != REDIRECT_SCHEME) return
+
+        if (uri.scheme != redirectUrl) return
 
         // Convert query params to map
         val params = mutableMapOf<String, String>()

@@ -1,22 +1,27 @@
-// DeepLinkProxyActivity.kt
 package com.pocketnest.sdk
 
+import android.app.Activity
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
-import androidx.activity.ComponentActivity
+import com.pocketnest.sdk.Config
 
-class DeepLinkProxyActivity : ComponentActivity() {
+class DeepLinkProxyActivity : Activity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        // Forward the deep link to the existing WebViewActivity instance
-        val forward = Intent(this, WebViewActivity::class.java).apply {
-            action = Intent.ACTION_VIEW
-            data = intent?.data
-            // Route to existing activity instance if present
-            addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP)
+        val uri: Uri? = intent?.data
+        val redirectUrl = Config.requireRedirectUrl()
+
+        if (uri != null && uri.scheme == redirectUrl) {
+            val forward = Intent(this, WebViewActivity::class.java).apply {
+                action = Intent.ACTION_VIEW
+                data = uri
+                addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP or Intent.FLAG_ACTIVITY_CLEAR_TOP)
+            }
+            startActivity(forward)
         }
-        startActivity(forward)
-        finish() // no UI
+
+        finish()
     }
 }
