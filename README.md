@@ -6,8 +6,9 @@ Android SDK for Pocketnest.
 
 ## Installation
 
-# Add the JitPack repository to your build file
-Add it in your root settings.gradle at the end of repositories:
+Add the JitPack repository to your build file:
+
+- **For Gradle 7.0+ (using `dependencyResolutionManagement` in `settings.gradle`):**
 
 ```groovy
 	dependencyResolutionManagement {
