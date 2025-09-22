@@ -1,4 +1,4 @@
-package com.pocketnest.sdk
+package org.pocketnest.sdk
 
 import android.content.Intent
 import android.net.Uri
@@ -15,7 +15,15 @@ import android.os.Message
 
 class WebViewActivity : AppCompatActivity() {
 
+     companion object {
+        const val EXTRA_URL = "extra_url"
+        const val EXTRA_REDIRECT_SCHEME = "extra_redirect_scheme" // e.g. "myssoredirect"
+    }
+
     private lateinit var webView: WebView
+    private lateinit var redirectScheme: String
+    private lateinit var startUrl: String
+
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
@@ -25,7 +33,15 @@ class WebViewActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val url = Config.requireUrl()
+        startUrl = intent.getStringExtra(EXTRA_URL) ?: error("Missing EXTRA_URL")
+        redirectScheme = intent.getStringExtra(EXTRA_REDIRECT_SCHEME) ?: error("Missing EXTRA_REDIRECT_SCHEME")
+
+        val url = if (redirectScheme.isBlank()) {
+            startUrl
+        } else {
+            if (startUrl.contains("?")) "$startUrl&redirect_uri=$redirectScheme" else "$startUrl?redirect_uri=$redirectScheme"
+        }
+
 
         webView = WebView(this)
         setContentView(webView)

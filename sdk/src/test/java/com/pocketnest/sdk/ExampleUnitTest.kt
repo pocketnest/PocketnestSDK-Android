@@ -1,4 +1,4 @@
-package com.pocketnest.sdk
+package org.pocketnest.sdk
 
 import org.junit.Test
 

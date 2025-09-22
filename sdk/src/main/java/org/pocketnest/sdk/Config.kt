@@ -1,4 +1,4 @@
-package com.pocketnest.sdk
+package org.pocketnest.sdk
 
 object Config {
     private var url: String? = null

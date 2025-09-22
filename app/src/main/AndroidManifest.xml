@@ -15,18 +15,5 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-
-        <!-- Optional: If you want the SDK deep links to launch the sample app -->
-        <activity android:name="com.pocketnest.sdk.DeepLinkProxyActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW"/>
-                <category android:name="android.intent.category.DEFAULT"/>
-                <category android:name="android.intent.category.BROWSABLE"/>
-                <data android:scheme="pocketnesthostedlink"/>
-            </intent-filter>
-        </activity>
-
-        <activity android:name="com.pocketnest.sdk.WebViewActivity" />
     </application>
 </manifest>

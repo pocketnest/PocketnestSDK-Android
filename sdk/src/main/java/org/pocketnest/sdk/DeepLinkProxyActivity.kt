@@ -1,10 +1,9 @@
-package com.pocketnest.sdk
+package org.pocketnest.sdk
 
 import android.app.Activity
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import com.pocketnest.sdk.Config
 
 class DeepLinkProxyActivity : Activity() {
     override fun onCreate(savedInstanceState: Bundle?) {

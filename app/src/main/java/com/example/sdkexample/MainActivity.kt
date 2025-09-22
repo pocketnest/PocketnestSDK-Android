@@ -1,17 +1,13 @@
 package com.example.sdkexample
 
-import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
 import androidx.activity.ComponentActivity
-import com.pocketnest.sdk.WebViewActivity
-import com.pocketnest.sdk.Config
-import org.json.JSONObject
+import org.pocketnest.sdk.PocketnestSDK
 
 private const val REDIRECT_SCHEME = "pocketnesthostedlink"
-private const val BASE_URL = "http://192.168.1.65:8081/?redirect_uri=$REDIRECT_SCHEME"
+private const val BASE_URL = "https://pocketnest-preprod.netlify.app"
 
 class MainActivity : ComponentActivity() {
 
@@ -21,47 +17,25 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        Config.init(
-            url = BASE_URL,
-            redirectUrl = REDIRECT_SCHEME
-        )
-
         logTextView = findViewById(R.id.logTextView)
 
         findViewById<Button>(R.id.launchSdkButton).setOnClickListener {
-            val intent = Intent(this, WebViewActivity::class.java)
-            startActivity(intent)
+            PocketnestSDK.webView(
+                activity = this,
+                url = BASE_URL,
+                redirectUri = REDIRECT_SCHEME,
+                onSuccess = { data ->
+                    appendLog("✅ Success: ${data["callbackURL"]}")
+                    appendLog("params: ${data["params"]}")
+                },
+                onExit = {
+                    appendLog("🚪 User exited SDK")
+                }
+            )
         }
-
-        // Handle deep link if app was cold-started
-        intent?.data?.let { handleDeepLink(it) }
-    }
-
-    override fun onNewIntent(intent: Intent) {
-        super.onNewIntent(intent)
-        intent.data?.let { handleDeepLink(it) }
-    }
-
-    private fun handleDeepLink(uri: Uri) {
-        appendLog("Received deep link: $uri")
-
-        val params = mutableMapOf<String, String>()
-        uri.queryParameterNames.forEach { name ->
-            params[name] = uri.getQueryParameter(name) ?: ""
-        }
-
-        val payload = JSONObject().apply {
-            put("status", "success")
-            put("callbackURL", uri.toString())
-            put("params", JSONObject(params as Map<*, *>))
-        }
-
-        appendLog("Parsed payload: $payload")
     }
 
     private fun appendLog(message: String) {
-        runOnUiThread {
-            logTextView.append("$message\n")
-        }
+        runOnUiThread { logTextView.append("$message\n") }
     }
 }

@@ -1,0 +1,22 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+<uses-permission android:name="android.permission.INTERNET" />
+  <application>
+    <activity
+        android:name="org.pocketnest.sdk.WebViewActivity"
+        android:exported="false"
+        android:launchMode="singleTop"
+        android:windowSoftInputMode="adjustResize" />
+    <activity
+        android:name="org.pocketnest.sdk.DeepLinkProxyActivity"
+        android:exported="true"
+        android:noHistory="true"
+        android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen">
+        <intent-filter>
+            <action android:name="android.intent.action.VIEW" />
+            <category android:name="android.intent.category.DEFAULT" />
+            <category android:name="android.intent.category.BROWSABLE" />
+            <data android:scheme="${pocketnestScheme}" android:host="${pocketnestHost}" />
+        </intent-filter>
+    </activity>
+  </application>
+</manifest>

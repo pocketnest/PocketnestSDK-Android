@@ -1,0 +1,34 @@
+name: Publish to Maven Central
+
+on:
+  push:
+    tags:
+      - "v*.*.*"   # Runs only when you push a tag like v1.0.0
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Checkout your repo code
+      - uses: actions/checkout@v4
+
+      # Step 2: Install Java (Gradle needs it)
+      - name: Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 17
+
+      # Step 3: Set up Gradle cache (makes builds faster)
+      - name: Set up Gradle
+        uses: gradle/actions/setup-gradle@v3
+
+      # Step 4: Run publish with your secrets
+      - name: Publish
+        env:
+          ORG_GRADLE_PROJECT_signingInMemoryKey: ${{ secrets.MAVEN_SIGNING_KEY }}
+          ORG_GRADLE_PROJECT_signingInMemoryKeyPassword: ${{ secrets.MAVEN_SIGNING_KEY_PASSWORD }}
+          ORG_GRADLE_PROJECT_centralUsername: ${{ secrets.CENTRAL_USERNAME }}
+          ORG_GRADLE_PROJECT_centralPassword: ${{ secrets.CENTRAL_PASSWORD }}
+        run: ./gradlew :sdk:publish

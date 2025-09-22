@@ -12,5 +12,5 @@ dependencyResolutionManagement {
     mavenCentral()
   }
 }
-rootProject.name = "WebViewSample"
+rootProject.name = "PocketnestSDK-Android"
 include(":app", ":sdk")
