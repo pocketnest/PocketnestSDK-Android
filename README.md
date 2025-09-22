@@ -6,19 +6,26 @@ Android SDK for Pocketnest.
 
 ## Installation
 
-Add the SDK to your **app module**:
+# Add the JitPack repository to your build file
+Add it in your root settings.gradle at the end of repositories:
 
-```kotlin
-dependencies {
-    implementation("org.pocketnest:pocketnest-sdk:1.0.0")
-}
-```
+```groovy
+	dependencyResolutionManagement {
+		repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+		repositories {
+			mavenCentral()
+			maven { url 'https://jitpack.io' }
+		}
+	}
+``` 
 
-### Gradle (Groovy)
+
+Add the SDK to your **app module** by including the following inside the `dependencies` block of your `app/build.gradle` file:
+
 
 ```groovy
 dependencies {
-    implementation "org.pocketnest:pocketnest-sdk:1.0.0"
+    implementation "com.github.pocketnest:PocketnestSDK-Android:1.0.0"
 }
 ```
 
