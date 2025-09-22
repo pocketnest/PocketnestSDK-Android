@@ -1,5 +1,7 @@
 # PocketnestSDK (Android)
 
+![PocketnestSDK](https://img.shields.io/badge/PocketnestSDK-1.0.0-success)
+
 Android SDK for Pocketnest.
 
 ## Installation
