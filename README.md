@@ -24,7 +24,7 @@ dependencies {
 
 ## Usage
 
-To integrate the PocketnestSDK, configure your **redirect URI** and call the SDK’s launcher.
+To integrate the PocketnestSDK, configure your **redirect URI**.
 
 ### Step 1. Configure redirect URI
 
@@ -44,7 +44,7 @@ android {
 
 ---
 
-### Step 2. Launch the SDK
+### Step 2. Get SSO web view
 
 In your Activity/Fragment:
 
