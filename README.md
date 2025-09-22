@@ -4,23 +4,7 @@ Android SDK for Pocketnest.
 
 ## Installation
 
-Once published, you can add **PocketnestSDK** to your project via **Maven Central**.
-
-### Gradle (Kotlin DSL)
-
-In your root `settings.gradle.kts` make sure you have:
-
-```kotlin
-dependencyResolutionManagement {
-    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
-    repositories {
-        google()
-        mavenCentral()
-    }
-}
-```
-
-Then add the SDK to your **app module**:
+Add the SDK to your **app module**:
 
 ```kotlin
 dependencies {
