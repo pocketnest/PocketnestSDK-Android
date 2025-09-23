@@ -64,7 +64,7 @@ import org.pocketnest.sdk.PocketnestSDK
 PocketnestSDK.webView(
     activity = this, // or requireActivity() in Fragment
     url = "https://mywebsite.com/sso",     // provided by Pocketnest (prod or preprod)
-    redirectUri = "myssoredirect", // must match manifest placeholders from step 1
+    redirectUri = "myssoredirect", // must match manifest placeholder pocketnestScheme from step 1
     onSuccess = { _ ->
         // Handle success: SDK finished with result map
     },
