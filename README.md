@@ -64,9 +64,10 @@ import org.pocketnest.sdk.PocketnestSDK
 PocketnestSDK.webView(
     activity = this, // or requireActivity() in Fragment
     url = "https://mywebsite.com/sso",     // provided by Pocketnest (prod or preprod)
+    accessToken = "myaccesstoken",         // user to be logged in automatically (session)
     redirectUri = "myssoredirect", // must match manifest placeholder pocketnestScheme from step 1
-    onSuccess = { _ ->
-        // Handle success: SDK finished with result map
+    onSuccess = {
+        // Handle SDK webview opened successfully
     },
     onExit = {
         // Handle user exit/cancel

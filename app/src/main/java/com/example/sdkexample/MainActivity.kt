@@ -23,10 +23,10 @@ class MainActivity : ComponentActivity() {
             PocketnestSDK.webView(
                 activity = this,
                 url = BASE_URL,
+                accessToken = "",
                 redirectUri = REDIRECT_SCHEME,
-                onSuccess = { data ->
-                    appendLog("✅ Success: ${data["callbackURL"]}")
-                    appendLog("params: ${data["params"]}")
+                onSuccess = {
+                    appendLog("✅ Success")
                 },
                 onExit = {
                     appendLog("🚪 User exited SDK")

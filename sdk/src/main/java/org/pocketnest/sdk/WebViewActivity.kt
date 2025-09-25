@@ -12,18 +12,12 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updatePadding
 import org.json.JSONObject
 import android.os.Message
+import androidx.core.net.toUri
 
 class WebViewActivity : AppCompatActivity() {
 
-     companion object {
-        const val EXTRA_URL = "extra_url"
-        const val EXTRA_REDIRECT_SCHEME = "extra_redirect_scheme" // e.g. "myssoredirect"
-    }
-
     private lateinit var webView: WebView
-    private lateinit var redirectScheme: String
     private lateinit var startUrl: String
-
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
@@ -33,13 +27,25 @@ class WebViewActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        startUrl = intent.getStringExtra(EXTRA_URL) ?: error("Missing EXTRA_URL")
-        redirectScheme = intent.getStringExtra(EXTRA_REDIRECT_SCHEME) ?: error("Missing EXTRA_REDIRECT_SCHEME")
+        // ✅ Tell SDK that the view is presented
+        PocketnestSDK.notifyPresented()
 
-        val url = if (redirectScheme.isBlank()) {
+        startUrl = Config.requireUrl()
+        val redirectScheme = Config.requireRedirectUrl()
+        val accessToken = Config.requireAccessToken()
+        var latestUrl = ""
+        val url = if (redirectScheme == null) {
             startUrl
         } else {
             if (startUrl.contains("?")) "$startUrl&redirect_uri=$redirectScheme" else "$startUrl?redirect_uri=$redirectScheme"
+        }
+        latestUrl = url;
+        if (accessToken != null) {
+            if (accessToken.isNotEmpty()) {
+                latestUrl = if (latestUrl.contains("?")) {
+                    "$latestUrl&token=$accessToken"
+                } else "$latestUrl?token=$accessToken"
+            }
         }
 
 
@@ -58,7 +64,8 @@ class WebViewActivity : AppCompatActivity() {
         settings.domStorageEnabled = true
         settings.loadsImagesAutomatically = true
         settings.mixedContentMode = WebSettings.MIXED_CONTENT_COMPATIBILITY_MODE
-        settings.setSupportMultipleWindows(true)
+        settings.setSupportMultipleWindows(false)
+
 
         // Inject the same bridge function used on iOS
         val bridgeJS = """
@@ -95,13 +102,14 @@ class WebViewActivity : AppCompatActivity() {
 
         webView.webViewClient = object : WebViewClient() {
             override fun shouldOverrideUrlLoading(view: WebView, request: WebResourceRequest): Boolean {
-                val url = request.url.toString()
-                val isExternal = !url.startsWith(url)
+                val url: String = request.url.toString()
+                val baseUrl = Config.requireUrl()
+                val isExternal = !url.startsWith(baseUrl)
 
                 return if (isExternal) {
                     // Open any external (non-Plaid CDN) links in external browser
                     try {
-                        startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url)))
+                        startActivity(Intent(Intent.ACTION_VIEW, url.toUri()))
                     } catch (_: Exception) { }
                     true
                 } else {
@@ -137,11 +145,17 @@ class WebViewActivity : AppCompatActivity() {
         if (savedInstanceState != null) {
             webView.restoreState(savedInstanceState)
         } else {
-            webView.loadUrl(url)
+            webView.loadUrl(latestUrl)
         }
 
         // If activity started via deep link while app was closed
         intent?.data?.let { handleDeepLink(it) }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        // ✅ Tell SDK that the view is closed
+        PocketnestSDK.notifyClosed()
     }
 
     private fun handleWebMessage(json: String) {
@@ -160,7 +174,7 @@ class WebViewActivity : AppCompatActivity() {
 
     private fun openHostedLink(hostedLinkUrl: String) {
         // Chrome Custom Tabs
-        val uri = Uri.parse(hostedLinkUrl)
+        val uri = hostedLinkUrl.toUri()
         val intent = CustomTabsIntent.Builder()
             .setShareState(CustomTabsIntent.SHARE_STATE_OFF)
             .setShowTitle(true)
@@ -182,6 +196,7 @@ class WebViewActivity : AppCompatActivity() {
     }
 
     private fun handleDeepLink(uri: Uri) {
+
         val redirectUrl = Config.requireRedirectUrl()
 
         Log.v("WebViewActivity", "Verbose log example")
