@@ -19,6 +19,7 @@ object PocketnestSDK {
         onSuccessCb = onSuccess
         onExitCb = onExit
 
+        // Initialize the SDK configuration with the provided URL and redirect URI.
         Config.init(url, redirectUri)
 
         activity.startActivity(
