@@ -1,6 +1,6 @@
 # PocketnestSDK (Android)
 
-![PocketnestSDK](https://img.shields.io/badge/PocketnestSDK-1.0.0-success)
+[![Latest Release](https://img.shields.io/github/v/release/pocketnest/PocketnestSDK-Android?sort=semver)](https://github.com/pocketnest/PocketnestSDK-Android/releases)
 
 Android SDK for Pocketnest.
 
