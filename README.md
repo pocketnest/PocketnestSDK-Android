@@ -46,7 +46,6 @@ android {
     defaultConfig {
         manifestPlaceholders = [
             pocketnestScheme: "myssoredirect",  // can be any string
-            pocketnestHost: "hosted-link-complete"
         ]
     }
 }
@@ -54,7 +53,13 @@ android {
 
 ---
 
-### Step 2. Get SSO web view
+### Step 2. Launch the SDK
+
+You can use the SDK in two modes depending on your integration needs:
+
+### Mode 1: Activity-based (standalone screen)
+
+This launches the Pocketnest SSO in a dedicated Activity managed by the SDK.
 
 In your Activity/Fragment:
 
@@ -75,13 +80,40 @@ PocketnestSDK.webView(
 )
 ```
 
-Function webView returns view component that can be used to show Pocketnest SSO screen.
+### Mode 2: Fragment-based (embedded)
+
+This embeds the Pocketnest SSO inside your own Fragment container.
+Great for apps with a single-activity architecture or custom navigation stacks.
+
+```kotlin
+import org.pocketnest.sdk.PocketnestSDK
+
+val fragment = PocketnestSDK.newWebViewFragment(
+    url = "https://mywebsite.com/sso",  // provided by Pocketnest (prod or preprod)
+    redirectUri = "myssoredirect",  // must match manifest placeholder pocketnestScheme from step 1
+    accessToken = "myaccesstoken", // user to be logged in automatically (session)
+    onSuccess = { 
+        // Called when SDK webview is presented
+    },
+    onExit = {
+        // Called when user exits/cancels
+    }
+)
+
+// Attach it to your container
+supportFragmentManager.beginTransaction()
+    .replace(R.id.container, fragment, "Pocketnest")
+    .addToBackStack(null)
+    .commit()
+```
+
+👉 Use this when you want the SDK’s UI embedded in your own flow.
 
 ---
 
 ## Example Project
 
-Check the sample `app` module in this repository for a working integration.
+Check the sample `app` module in this repository for a working integration that demonstrates both Activity and Fragment modes.
 
 ---
 

@@ -1,6 +1,10 @@
 package org.pocketnest.sdk
 
 object Config {
+    enum class LaunchMode { ACTIVITY, FRAGMENT, AUTO }
+
+    @Volatile internal var launchMode: LaunchMode = LaunchMode.AUTO
+
     private var url: String? = null
     private var redirectUrl: String? = null
     private var accessToken: String? = null

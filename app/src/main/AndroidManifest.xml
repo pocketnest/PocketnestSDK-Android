@@ -1,19 +1,24 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.example.sdkexample">
 
     <application
         android:allowBackup="true"
         android:label="Pocketnest SDK Sample"
         android:usesCleartextTraffic="true"
-        android:launchMode="singleTop"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
 
-        <activity android:name=".MainActivity"
+        <!-- Your launcher activity -->
+        <activity
+            android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+
+        <!-- (WebViewActivity is declared in the SDK’s AAR manifest) -->
+
     </application>
 </manifest>

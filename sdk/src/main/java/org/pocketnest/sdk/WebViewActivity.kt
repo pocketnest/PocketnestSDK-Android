@@ -1,236 +1,85 @@
+// file: org/pocketnest/sdk/WebViewActivity.kt
 package org.pocketnest.sdk
 
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
-import android.webkit.*
 import androidx.appcompat.app.AppCompatActivity
-import androidx.browser.customtabs.CustomTabsIntent
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updatePadding
-import org.json.JSONObject
-import android.os.Message
-import androidx.core.net.toUri
+import org.pocketnest.sdk.internal.PocketnestWebController
+import org.pocketnest.sdk.internal.DeepLinkConsumer
+import org.pocketnest.sdk.internal.DeepLinkRouter
 
 class WebViewActivity : AppCompatActivity() {
 
-    private lateinit var webView: WebView
-    private lateinit var startUrl: String
-
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-        webView.saveState(outState)
-    }
+    private lateinit var controller: PocketnestWebController
+    private var deepLinkConsumer: DeepLinkConsumer? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        // ✅ Tell SDK that the view is presented
         PocketnestSDK.notifyPresented()
 
-        startUrl = Config.requireUrl()
-        val redirectScheme = Config.requireRedirectUrl()
-        val accessToken = Config.requireAccessToken()
-        var latestUrl = ""
-        val url = if (redirectScheme == null) {
-            startUrl
-        } else {
-            if (startUrl.contains("?")) "$startUrl&redirect_uri=$redirectScheme" else "$startUrl?redirect_uri=$redirectScheme"
-        }
-        latestUrl = url;
-        if (accessToken != null) {
-            if (accessToken.isNotEmpty()) {
-                latestUrl = if (latestUrl.contains("?")) {
-                    "$latestUrl&token=$accessToken"
-                } else "$latestUrl?token=$accessToken"
-            }
-        }
+        controller = PocketnestWebController(
+            context = this,
+            startUrl = Config.requireUrl(),
+            redirectUri = Config.requireRedirectUrl(),
+            accessToken = Config.requireAccessToken(),
+            onPresented = { /* already notified */ },
+            onClosed = { PocketnestSDK.notifyClosed() }
+        )
 
 
-        webView = WebView(this)
+        val webView = controller.createWebView(savedInstanceState)
         setContentView(webView)
 
-        // Safe area / insets (optional)
+        // Optional: apply system bar insets to the WebView
         ViewCompat.setOnApplyWindowInsetsListener(webView) { view, insets ->
             val sys = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             view.updatePadding(left = sys.left, top = sys.top, right = sys.right, bottom = sys.bottom)
             insets
         }
 
-        val settings = webView.settings
-        settings.javaScriptEnabled = true
-        settings.domStorageEnabled = true
-        settings.loadsImagesAutomatically = true
-        settings.mixedContentMode = WebSettings.MIXED_CONTENT_COMPATIBILITY_MODE
-        settings.setSupportMultipleWindows(false)
-
-
-        // Inject the same bridge function used on iOS
-        val bridgeJS = """
-            (function(){
-              window.HostBridge = window.HostBridge || {};
-              window.HostBridge.onHostedLinkComplete = function (payload) {
-                try {
-                  var data = (typeof payload === 'string') ? JSON.parse(payload) : payload;
-                  window.dispatchEvent(new CustomEvent('hosted-link-complete', { detail: data }));
-                } catch (e) { console.error('HostBridge payload parse error', e); }
-              };
-              // Provide a consistent "native" bridge API
-              // On iOS: window.webkit.messageHandlers.native.postMessage(...)
-              // On Android: window.native.postMessage(...)
-              if (!window.webkit) window.webkit = { messageHandlers: {} };
-              if (!window.webkit.messageHandlers) window.webkit.messageHandlers = {};
-              if (!window.native) {
-                window.native = {
-                  postMessage: function (msg) {
-                    try { NativeBridge.postMessage(typeof msg === 'string' ? msg : JSON.stringify(msg)); }
-                    catch (e) { console.error('NativeBridge error', e); }
-                  }
-                };
-              }
-              if (!window.webkit.messageHandlers.native) {
-                window.webkit.messageHandlers.native = { postMessage: window.native.postMessage };
-              }
-            })();
-        """.trimIndent()
-
-        webView.addJavascriptInterface(NativeBridge { json ->
-            handleWebMessage(json)
-        }, "NativeBridge")
-
-        webView.webViewClient = object : WebViewClient() {
-            override fun shouldOverrideUrlLoading(view: WebView, request: WebResourceRequest): Boolean {
-                val url: String = request.url.toString()
-                val baseUrl = Config.requireUrl()
-                val isExternal = !url.startsWith(baseUrl)
-
-                return if (isExternal) {
-                    // Open any external (non-Plaid CDN) links in external browser
-                    try {
-                        startActivity(Intent(Intent.ACTION_VIEW, url.toUri()))
-                    } catch (_: Exception) { }
-                    true
-                } else {
-                    false // allow WebView to load
-                }
-            }
-
-            override fun onPageFinished(view: WebView, url: String) {
-                super.onPageFinished(view, url)
-                // Inject bridge early (also injected at doc start below via UserScript-like approach)
-                view.evaluateJavascript(bridgeJS, null)
-            }
-        }
-
-        webView.webChromeClient = object : WebChromeClient() {
-            // Handle window.open / target=_blank (load into same WebView)
-            override fun onCreateWindow(
-                view: WebView?,
-                isDialog: Boolean,
-                isUserGesture: Boolean,
-                resultMsg: Message?
-            ): Boolean {
-                val transport = resultMsg?.obj as? WebView.WebViewTransport
-                transport?.webView = webView
-                resultMsg?.sendToTarget()
-                return true
-            }
-        }
-
-        // Inject the bridge at document start
-        webView.evaluateJavascript("(function(){ $bridgeJS })();", null)
-
-        if (savedInstanceState != null) {
-            webView.restoreState(savedInstanceState)
-        } else {
-            webView.loadUrl(latestUrl)
-        }
-
         // If activity started via deep link while app was closed
-        intent?.data?.let { handleDeepLink(it) }
+        intent?.data?.let(controller::handleDeepLink)
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        controller.onSaveInstanceState(outState)
+    }
+
+    override fun onNewIntent(intent: Intent) {
+        super.onNewIntent(intent)
+        setIntent(intent)
+        intent.data?.let(controller::handleDeepLink)
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        // ✅ Tell SDK that the view is closed
-        PocketnestSDK.notifyClosed()
+        controller.destroy()
+        deepLinkConsumer = null
     }
 
-    private fun handleWebMessage(json: String) {
-        Log.d("WebViewActivity", "MESSAGE $json")
-        try {
-            val obj = JSONObject(json)
-            val type = obj.optString("type", "")
-            if (type == "openHostedLink") {
-                val url = obj.optString("url", "")
-                if (url.isNotEmpty()) openHostedLink(url)
+    override fun onStart() {
+        super.onStart()
+        if (deepLinkConsumer == null) {
+            deepLinkConsumer = object : DeepLinkConsumer {
+                override fun consumeDeepLink(uri: Uri): Boolean {
+                    val expected = Config.requireRedirectUrl()
+                    if (!uri.scheme.equals(expected, true)) return false
+                    controller.handleDeepLink(uri)
+                    return true
+                }
             }
-        } catch (e: Exception) {
-            Log.e("WebViewActivity", "Failed to parse message: $json", e)
         }
+    DeepLinkRouter.register(deepLinkConsumer!!)
     }
 
-    private fun openHostedLink(hostedLinkUrl: String) {
-        // Chrome Custom Tabs
-        val uri = hostedLinkUrl.toUri()
-        val intent = CustomTabsIntent.Builder()
-            .setShareState(CustomTabsIntent.SHARE_STATE_OFF)
-            .setShowTitle(true)
-            .build()
-
-        try {
-            intent.launchUrl(this, uri)
-        } catch (e: Exception) {
-            // Fallback to external browser if no Custom Tabs
-            startActivity(Intent(Intent.ACTION_VIEW, uri))
-        }
+    override fun onStop() {
+        deepLinkConsumer?.let { DeepLinkRouter.unregister(it) }
+        super.onStop()
     }
-
-    // Deep link arrives here when already running (singleTop)
-    override fun onNewIntent(intent: Intent) {
-        super.onNewIntent(intent)
-        setIntent(intent)
-        intent.data?.let { handleDeepLink(it) }
-    }
-
-    private fun handleDeepLink(uri: Uri) {
-
-        val redirectUrl = Config.requireRedirectUrl()
-
-        Log.v("WebViewActivity", "Verbose log example")
-        Log.d("WebViewActivity", "Received from web: $uri")
-        println(uri)
-
-        if (uri.scheme != redirectUrl) return
-
-        // Convert query params to map
-        val params = mutableMapOf<String, String>()
-        uri.queryParameterNames.forEach { name ->
-            params[name] = uri.getQueryParameter(name) ?: ""
-        }
-
-        val payload = JSONObject().apply {
-            put("status", "success") // Treat all arrivals as success; see note below about "cancel"
-            put("callbackURL", uri.toString())
-            put("params", JSONObject(params as Map<*, *>))
-        }.toString()
-
-        notifyWeb(payload)
-    }
-
-    private fun notifyWeb(jsonPayload: String) {
-        // Call the same bridge the iOS code uses
-        val js = "window.HostBridge.onHostedLinkComplete($jsonPayload)"
-        runOnUiThread {
-            webView.evaluateJavascript(js, null)
-        }
-    }
-}
-
-/** JS interface for window.native.postMessage(...) */
-class NativeBridge(private val onMessage: (String) -> Unit) {
-    @JavascriptInterface
-    fun postMessage(json: String) = onMessage(json)
 }

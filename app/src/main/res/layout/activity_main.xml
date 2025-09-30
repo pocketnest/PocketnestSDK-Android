@@ -11,8 +11,22 @@
         android:id="@+id/launchSdkButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Launch Pocketnest SDK"
+        android:text="Launch SDK (Activity)"
         android:layout_marginBottom="16dp"/>
+
+     <Button
+        android:id="@+id/launchSdkFragmentButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Launch SDK (Fragment)" 
+        android:layout_marginBottom="16dp"/>
+
+            <!-- Add this placeholder for the SDK fragment -->
+    <FrameLayout
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="427dp"
+        android:layout_weight="1" />
 
     <ScrollView
         android:id="@+id/logScrollView"

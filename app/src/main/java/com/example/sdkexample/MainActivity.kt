@@ -5,11 +5,12 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.activity.ComponentActivity
 import org.pocketnest.sdk.PocketnestSDK
+import androidx.appcompat.app.AppCompatActivity
 
 private const val REDIRECT_SCHEME = "pocketnesthostedlink"
 private const val BASE_URL = "https://pocketnest-preprod.netlify.app"
 
-class MainActivity : ComponentActivity() {
+class MainActivity : AppCompatActivity() {
 
     private lateinit var logTextView: TextView
 
@@ -33,6 +34,27 @@ class MainActivity : ComponentActivity() {
                 }
             )
         }
+
+
+        findViewById<Button>(R.id.launchSdkFragmentButton).setOnClickListener {
+            val frag = PocketnestSDK.newWebViewFragment(
+                url = BASE_URL,
+                redirectUri = REDIRECT_SCHEME,
+                accessToken = "",
+                onSuccess = { appendLog("✅ Success (Fragment)") },
+                onExit = { appendLog("🚪 Exit (Fragment)") }
+            )
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.container, frag, "Pocketnest")
+                .addToBackStack(null)
+                .commit()
+        }
+    }
+
+    override fun onNewIntent(intent: android.content.Intent) {
+        super.onNewIntent(intent)
+//        (supportFragmentManager.findFragmentByTag("Pocketnest") as? org.pocketnest.sdk.PocketnestWebViewFragment)
+//            ?.handleDeepLinkFromHost(intent.data ?: return)
     }
 
     private fun appendLog(message: String) {
