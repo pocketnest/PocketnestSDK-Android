@@ -37,7 +37,7 @@ dependencies {
 
 To integrate the PocketnestSDK, configure your **redirect URI**.
 
-### Step 1. Configure redirect URI
+### Step 1. Configure redirect URI *REQUIRED*
 
 
 In your `app/build.gradle`:
@@ -46,7 +46,7 @@ In your `app/build.gradle`:
 android {
     defaultConfig {
         manifestPlaceholders = [
-            pocketnestScheme: "myssoredirect",  // can be any string
+            pocketnestScheme: "myssoredirect",  // can be any string and it is required
         ]
     }
 }
