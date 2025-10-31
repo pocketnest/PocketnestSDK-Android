@@ -64,6 +64,7 @@ This launches the Pocketnest SSO in a dedicated Activity managed by the SDK.
 
 In your Activity/Fragment:
 
+## Kotlin
 ```kotlin
 import org.pocketnest.sdk.PocketnestSDK
 
@@ -81,6 +82,7 @@ PocketnestSDK.webView(
 )
 ```
 
+## Java
 ```java
 import org.pocketnest.sdk.PocketnestSDK;
 
@@ -105,6 +107,7 @@ PocketnestSDK.webView(
 This embeds the Pocketnest SSO inside your own Fragment container.
 Great for apps with a single-activity architecture or custom navigation stacks.
 
+## Kotlin
 ```kotlin
 import org.pocketnest.sdk.PocketnestSDK
 
@@ -127,6 +130,7 @@ supportFragmentManager.beginTransaction()
     .commit()
 ```
 
+## Java
 ```java
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
