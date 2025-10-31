@@ -81,6 +81,25 @@ PocketnestSDK.webView(
 )
 ```
 
+```java
+import org.pocketnest.sdk.PocketnestSDK;
+
+PocketnestSDK.webView(
+    this, // activity
+    "https://mywebsite.com/sso",    // provided by Pocketnest (prod or preprod)
+    "myaccesstoken",                // user to be logged in automatically (session)
+    "myssoredirect",                // must match manifest placeholder pocketnestScheme from step 1
+    () -> {
+        // Handle SDK webview opened successfully
+        return null;
+    },
+    () -> {
+        // Handle user exit/cancel
+        return null;
+    }
+);
+```
+
 ### Mode 2: Fragment-based (embedded)
 
 This embeds the Pocketnest SSO inside your own Fragment container.
@@ -106,6 +125,33 @@ supportFragmentManager.beginTransaction()
     .replace(R.id.container, fragment, "Pocketnest")
     .addToBackStack(null)
     .commit()
+```
+
+```java
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
+import org.pocketnest.sdk.PocketnestSDK;
+
+Fragment fragment = PocketnestSDK.newWebViewFragment(
+    "https://mywebsite.com/sso",  // provided by Pocketnest (prod or preprod)
+    "myssoredirect",              // must match manifest placeholder pocketnestScheme from step 1
+    "myaccesstoken",              // user to be logged in automatically (session)
+    () -> {
+        // Called when SDK webview is presented
+        return null;
+    },
+    () -> {
+        // Called when user exits/cancels
+        return null;
+    }
+);
+
+// Attach it to your container
+getSupportFragmentManager()
+    .beginTransaction()
+    .replace(R.id.container, fragment, "Pocketnest")
+    .addToBackStack(null)
+    .commit();
 ```
 
 👉 Use this when you want the SDK’s UI embedded in your own flow.
