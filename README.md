@@ -2,6 +2,8 @@
 
 [![Latest Release](https://img.shields.io/github/v/release/pocketnest/PocketnestSDK-Android?sort=semver)](https://github.com/pocketnest/PocketnestSDK-Android/releases)
 
+[![](https://jitpack.io/v/pocketnest/PocketnestSDK-Android.svg)](https://jitpack.io/#pocketnest/PocketnestSDK-Android)
+
 Android SDK for Pocketnest.
 
 ## Installation
@@ -26,7 +28,7 @@ Add the SDK to your **app module** by including the following inside the `depend
 
 ```groovy
 dependencies {
-    implementation 'com.github.pocketnest:PocketnestSDK-Android:1.0.3'
+    implementation 'com.github.pocketnest:PocketnestSDK-Android:1.0.4'
 }
 ```
 
