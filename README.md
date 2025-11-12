@@ -58,6 +58,8 @@ android {
 
 You can use the SDK in two modes depending on your integration needs:
 
+To get `url` and `accessToken` you need to check `Pocketnest SSO Partner Procedures` documentation.
+
 ### Mode 1: Activity-based (standalone screen)
 
 This launches the Pocketnest SSO in a dedicated Activity managed by the SDK.
