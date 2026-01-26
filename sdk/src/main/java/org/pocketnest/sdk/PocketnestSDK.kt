@@ -32,7 +32,6 @@ object PocketnestSDK {
      *
      * @param activity      The parent [Activity] used to start the flow.
      * @param url           The URL to load in the WebView.
-     * @param redirectUri   Redirect URI used for OAuth / deep link handling.
      * @param accessToken   Optional access token to automatically authenticate the session.
      * @param onSuccess     Callback invoked when the WebView flow is presented
      * @param onExit        Callback invoked when the WebView flow is closed or dismissed.
@@ -41,7 +40,6 @@ object PocketnestSDK {
     fun webView(
         activity: Activity,
         url: String,
-        redirectUri: String?,
         accessToken:String?,
         onSuccess: (() -> Unit)?,
         onExit: (() -> Unit)?
@@ -49,7 +47,7 @@ object PocketnestSDK {
         onSuccessCb = onSuccess
         onExitCb = onExit
 
-        Config.init(url, redirectUri, accessToken);
+        Config.init(url, accessToken);
         Config.launchMode = Config.LaunchMode.ACTIVITY
         activity.startActivity(Intent(activity, WebViewActivity::class.java))
     }
@@ -59,7 +57,6 @@ object PocketnestSDK {
      * Embeddable Fragment for single-activity apps
      *
      * @param url           The URL to load in the WebView.
-     * @param redirectUri   Redirect URI used for OAuth / deep link handling.
      * @param accessToken   Optional access token to automatically authenticate the session.
      * @param onSuccess     Callback invoked when the WebView flow is presented
      * @param onExit        Callback invoked when the WebView flow is closed or dismissed.
@@ -68,14 +65,13 @@ object PocketnestSDK {
     @JvmStatic
     fun newWebViewFragment(
         url: String,
-        redirectUri: String?,
         accessToken: String?,
         onSuccess: (() -> Unit)? = null,
         onExit:    (() -> Unit)? = null
     ): Fragment {
         onSuccessCb = onSuccess
         onExitCb = onExit
-        Config.init(url, redirectUri, accessToken)
+        Config.init(url, accessToken)
         Config.launchMode = Config.LaunchMode.FRAGMENT
         return PocketnestWebViewFragment.newInstance()
     }

@@ -6,12 +6,11 @@ object Config {
     @Volatile internal var launchMode: LaunchMode = LaunchMode.AUTO
 
     private var url: String? = null
-    private var redirectUrl: String? = null
+    private var redirectUrl: String = "pocketnestredirecturi" // Static value
     private var accessToken: String? = null
 
-    fun init(url: String, redirectUrl: String?, accessToken:String?) {
+    fun init(url: String, accessToken:String?) {
         this.url = url
-        this.redirectUrl = redirectUrl
         this.accessToken = accessToken
     }
 

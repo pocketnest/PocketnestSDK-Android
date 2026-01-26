@@ -7,8 +7,8 @@ import androidx.activity.ComponentActivity
 import org.pocketnest.sdk.PocketnestSDK
 import androidx.appcompat.app.AppCompatActivity
 
-private const val REDIRECT_SCHEME = "pocketnesthostedlink"
-private const val BASE_URL = "https://pocketnest-preprod.netlify.app"
+
+private const val BASE_URL = "https://deploy-preview-721--pocketnest-preprod.netlify.app"
 
 class MainActivity : AppCompatActivity() {
 
@@ -25,7 +25,6 @@ class MainActivity : AppCompatActivity() {
                 activity = this,
                 url = BASE_URL,
                 accessToken = "",
-                redirectUri = REDIRECT_SCHEME,
                 onSuccess = {
                     appendLog("✅ Success")
                 },
@@ -39,7 +38,6 @@ class MainActivity : AppCompatActivity() {
         findViewById<Button>(R.id.launchSdkFragmentButton).setOnClickListener {
             val frag = PocketnestSDK.newWebViewFragment(
                 url = BASE_URL,
-                redirectUri = REDIRECT_SCHEME,
                 accessToken = "",
                 onSuccess = { appendLog("✅ Success (Fragment)") },
                 onExit = { appendLog("🚪 Exit (Fragment)") }

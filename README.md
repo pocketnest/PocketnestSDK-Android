@@ -1,6 +1,5 @@
 # PocketnestSDK (Android)
 
-
 [![](https://jitpack.io/v/pocketnest/PocketnestSDK-Android.svg)](https://jitpack.io/#pocketnest/PocketnestSDK-Android)
 
 Android SDK for Pocketnest.
@@ -19,11 +18,9 @@ Add the JitPack repository to your build file:
 			maven { url 'https://jitpack.io' }
 		}
 	}
-``` 
-
+```
 
 Add the SDK to your **app module** by including the following inside the `dependencies` block of your `app/build.gradle` file:
-
 
 ```groovy
 dependencies {
@@ -37,8 +34,7 @@ dependencies {
 
 To integrate the PocketnestSDK, configure your **redirect URI**.
 
-### Step 1. Configure redirect URI *REQUIRED*
-
+### Step 1. Configure redirect URI _REQUIRED_
 
 In your `app/build.gradle`:
 
@@ -46,7 +42,7 @@ In your `app/build.gradle`:
 android {
     defaultConfig {
         manifestPlaceholders = [
-            pocketnestScheme: "myssoredirect",  // can be any string and it is required
+            pocketnestScheme: "pocketnestredirecturi",  // required for plaid app to app linking
         ]
     }
 }
@@ -73,7 +69,6 @@ PocketnestSDK.webView(
     activity = this, // or requireActivity() in Fragment
     url = "https://mywebsite.com/sso",     // provided by Pocketnest (prod or preprod)
     accessToken = "myaccesstoken",         // user to be logged in automatically (session)
-    redirectUri = "myssoredirect", // must match manifest placeholder pocketnestScheme from step 1
     onSuccess = {
         // Handle SDK webview opened successfully
     },
@@ -93,9 +88,8 @@ import org.pocketnest.sdk.PocketnestSDK
 
 val fragment = PocketnestSDK.newWebViewFragment(
     url = "https://mywebsite.com/sso",  // provided by Pocketnest (prod or preprod)
-    redirectUri = "myssoredirect",  // must match manifest placeholder pocketnestScheme from step 1
     accessToken = "myaccesstoken", // user to be logged in automatically (session)
-    onSuccess = { 
+    onSuccess = {
         // Called when SDK webview is presented
     },
     onExit = {
@@ -122,6 +116,5 @@ Check the sample `app` module in this repository for a working integration that 
 
 ## Notes
 
-- Requires **minSdk 24** and **targetSdk 34** or higher.  
-- SDK uses a WebView/Custom Tabs to handle Pocketnest SSO securely.  
-- Make sure your `redirectUri` matches exactly (case-sensitive).
+- Requires **minSdk 24** and **targetSdk 34** or higher.
+- SDK uses a WebView/Custom Tabs to handle Pocketnest SSO securely.

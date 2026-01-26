@@ -16,7 +16,7 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         manifestPlaceholders = [
-                pocketnestScheme: "pocketnesthostedlink",  // can be any string
+                pocketnestScheme: "pocketnestredirecturi", //static value
                 pocketnestHost: "hosted-link-complete"
         ]
     }
