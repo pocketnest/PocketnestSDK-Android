@@ -8,7 +8,7 @@ import org.pocketnest.sdk.PocketnestSDK
 import androidx.appcompat.app.AppCompatActivity
 
 
-private const val BASE_URL = "https://deploy-preview-721--pocketnest-preprod.netlify.app"
+private const val BASE_URL = "https://pocketnest-preprod.netlify.app"
 
 class MainActivity : AppCompatActivity() {
 
