@@ -31,19 +31,56 @@ class WebViewActivity : AppCompatActivity() {
             onClosed = { PocketnestSDK.notifyClosed() }
         )
 
-
         val webView = controller.createWebView(savedInstanceState)
         setContentView(webView)
 
-        // Optional: apply system bar insets to the WebView
+        // Apply system bar insets
         ViewCompat.setOnApplyWindowInsetsListener(webView) { view, insets ->
             val sys = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            view.updatePadding(left = sys.left, top = sys.top, right = sys.right, bottom = sys.bottom)
+            view.updatePadding(
+                left = sys.left,
+                top = sys.top,
+                right = sys.right,
+                bottom = sys.bottom
+            )
             insets
         }
 
-        // If activity started via deep link while app was closed
-        intent?.data?.let(controller::handleDeepLink)
+        // IMPORTANT:
+        // Do NOT call controller.handleDeepLink() here.
+        // If activity was launched via deep link, route it instead.
+        intent?.data?.let(DeepLinkRouter::route)
+    }
+
+    override fun onNewIntent(intent: Intent) {
+        super.onNewIntent(intent)
+        setIntent(intent)
+
+        // Route via router only
+        intent.data?.let(DeepLinkRouter::route)
+    }
+
+    override fun onStart() {
+        super.onStart()
+
+        if (deepLinkConsumer == null) {
+            deepLinkConsumer = object : DeepLinkConsumer {
+                override fun consumeDeepLink(uri: Uri): Boolean {
+                    val expected = Config.requireRedirectUrl()
+                    if (!uri.scheme.equals(expected, true)) return false
+
+                    controller.handleDeepLink(uri)
+                    return true
+                }
+            }
+        }
+
+        DeepLinkRouter.register(deepLinkConsumer!!)
+    }
+
+    override fun onStop() {
+        deepLinkConsumer?.let { DeepLinkRouter.unregister(it) }
+        super.onStop()
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -51,35 +88,9 @@ class WebViewActivity : AppCompatActivity() {
         controller.onSaveInstanceState(outState)
     }
 
-    override fun onNewIntent(intent: Intent) {
-        super.onNewIntent(intent)
-        setIntent(intent)
-        intent.data?.let(controller::handleDeepLink)
-    }
-
     override fun onDestroy() {
         super.onDestroy()
         controller.destroy()
         deepLinkConsumer = null
-    }
-
-    override fun onStart() {
-        super.onStart()
-        if (deepLinkConsumer == null) {
-            deepLinkConsumer = object : DeepLinkConsumer {
-                override fun consumeDeepLink(uri: Uri): Boolean {
-                    val expected = Config.requireRedirectUrl()
-                    if (!uri.scheme.equals(expected, true)) return false
-                    controller.handleDeepLink(uri)
-                    return true
-                }
-            }
-        }
-    DeepLinkRouter.register(deepLinkConsumer!!)
-    }
-
-    override fun onStop() {
-        deepLinkConsumer?.let { DeepLinkRouter.unregister(it) }
-        super.onStop()
     }
 }

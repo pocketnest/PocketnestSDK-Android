@@ -5,11 +5,12 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.os.SystemClock
 import android.util.Log
 import android.webkit.*
 import androidx.browser.customtabs.CustomTabsIntent
-import org.json.JSONObject
 import androidx.core.net.toUri
+import org.json.JSONObject
 
 internal class PocketnestWebController(
     private val context: Context,
@@ -21,6 +22,13 @@ internal class PocketnestWebController(
 ) {
     lateinit var webView: WebView
         private set
+
+    // ---- Custom Tabs resume support ----
+    private var lastHostedLinkUrl: String? = null
+
+    // Prevent opening the tab multiple times / loops
+    private var lastTabLaunchUptimeMs: Long = 0L
+    private val TAB_LAUNCH_DEBOUNCE_MS = 1200L
 
     fun createWebView(savedInstanceState: Bundle?): WebView {
         webView = WebView(context)
@@ -58,11 +66,9 @@ internal class PocketnestWebController(
             override fun onPageFinished(v: WebView, url: String) {
                 super.onPageFinished(v, url)
                 v.evaluateJavascript(WebCore.BRIDGE_JS, null)
-                // If you want “opened successfully” after first load, you can call onPresented() here instead.
             }
         }
 
-        // Early injection
         webView.evaluateJavascript("(function(){ ${WebCore.BRIDGE_JS} })();", null)
 
         if (savedInstanceState != null) {
@@ -71,7 +77,6 @@ internal class PocketnestWebController(
             webView.loadUrl(WebCore.buildUrl(startUrl, redirectUri, accessToken))
         }
 
-        // “Presented” at this point (swap to onPageFinished if you prefer)
         onPresented()
         return webView
     }
@@ -95,9 +100,10 @@ internal class PocketnestWebController(
         try {
             val obj = JSONObject(json)
             when (obj.optString("type", "")) {
-                "openHostedLink" -> obj.optString("url", "").takeIf { it.isNotEmpty() }?.let(::openHostedLink)
-                "onSuccess" -> { /* optional: surface to host */ }
-                "onExit" -> { /* optional: surface to host */ }
+                "openHostedLink" ->
+                    obj.optString("url", "").takeIf { it.isNotEmpty() }?.let(::openHostedLink)
+                "onSuccess" -> {}
+                "onExit" -> {}
             }
         } catch (e: Exception) {
             Log.e("PocketnestSDK", "Failed to parse message: $json", e)
@@ -105,10 +111,31 @@ internal class PocketnestWebController(
     }
 
     private fun openHostedLink(hostedLinkUrl: String) {
-        val uri = hostedLinkUrl.toUri()
-        val intent = CustomTabsIntent.Builder().setShowTitle(true).setShareState(CustomTabsIntent.SHARE_STATE_OFF).build()
-        try { intent.launchUrl(context, uri) } catch (_: Exception) {
-            context.startActivity(Intent(Intent.ACTION_VIEW, uri))
+        lastHostedLinkUrl = hostedLinkUrl
+        launchCustomTab(hostedLinkUrl)
+    }
+
+    private fun launchCustomTab(url: String) {
+        // Debounce to prevent loops / double launches
+        val now = SystemClock.uptimeMillis()
+        if (now - lastTabLaunchUptimeMs < TAB_LAUNCH_DEBOUNCE_MS) return
+        lastTabLaunchUptimeMs = now
+
+        val uri = url.toUri()
+
+        val customTabsIntent = CustomTabsIntent.Builder()
+            .setShowTitle(true)
+            .setShareState(CustomTabsIntent.SHARE_STATE_OFF)
+            .build()
+
+        try {
+            customTabsIntent.launchUrl(context, uri)
+        } catch (_: Exception) {
+            try {
+                context.startActivity(
+                    Intent(Intent.ACTION_VIEW, uri)
+                )
+            } catch (_: Exception) {}
         }
     }
 
@@ -118,10 +145,10 @@ internal class PocketnestWebController(
         if (!expectedScheme.equals(uri.scheme, true)) return
 
         val params = uri.queryParameterNames.associateWith { uri.getQueryParameter(it) ?: "" }
-        val payload = org.json.JSONObject().apply {
+        val payload = JSONObject().apply {
             put("status", "success")
             put("callbackURL", uri.toString())
-            put("params", org.json.JSONObject(params))
+            put("params", JSONObject(params))
         }.toString()
 
         val js = "window.HostBridge.onHostedLinkComplete($payload)"
