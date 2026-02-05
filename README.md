@@ -24,7 +24,7 @@ Add the SDK to your **app module** by including the following inside the `depend
 
 ```groovy
 dependencies {
-    implementation 'com.github.pocketnest:PocketnestSDK-Android:1.0.6'
+    implementation 'com.github.pocketnest:PocketnestSDK-Android:2.0.0'
 }
 ```
 
