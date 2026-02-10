@@ -24,7 +24,7 @@ Add the SDK to your **app module** by including the following inside the `depend
 
 ```groovy
 dependencies {
-    implementation 'com.github.pocketnest:PocketnestSDK-Android:2.0.0'
+    implementation 'com.github.pocketnest:PocketnestSDK-Android:2.0.1'
 }
 ```
 
@@ -42,7 +42,7 @@ In your `app/build.gradle`:
 android {
     defaultConfig {
         manifestPlaceholders = [
-            pocketnestScheme: "pocketnestredirecturi",  // required for plaid app to app linking
+            pocketnestScheme: "pocketnestredirecturi",  //Required: (If you require unique URL scheme, contact us.) This is required to handle the redirect back from from plaid app to app linking like Chase.
         ]
     }
 }
@@ -68,7 +68,8 @@ import org.pocketnest.sdk.PocketnestSDK
 PocketnestSDK.webView(
     activity = this, // or requireActivity() in Fragment
     url = "https://mywebsite.com/sso",     // provided by Pocketnest (prod or preprod)
-    accessToken = "myaccesstoken",         // user to be logged in automatically (session)
+    accessToken = "myaccesstoken",         // Optional: user to be logged in automatically (session)
+    redirectUri = "pocketnestredirecturi", // Optional: This is only required if you want to use your own unique URL scheme and should match those you set in the manifestPlaceholders, otherwise it will be automatically set to default value
     onSuccess = {
         // Handle SDK webview opened successfully
     },
@@ -88,7 +89,8 @@ import org.pocketnest.sdk.PocketnestSDK
 
 val fragment = PocketnestSDK.newWebViewFragment(
     url = "https://mywebsite.com/sso",  // provided by Pocketnest (prod or preprod)
-    accessToken = "myaccesstoken", // user to be logged in automatically (session)
+    accessToken = "myaccesstoken", //Optional:  user to be logged in automatically (session)
+    redirectUri = "pocketnestredirecturi", // Optional: This is only required if you want to use your own unique URL scheme and should match those you set in the manifestPlaceholders, otherwise it will be automatically set to default value
     onSuccess = {
         // Called when SDK webview is presented
     },

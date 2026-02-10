@@ -24,7 +24,6 @@ class MainActivity : AppCompatActivity() {
             PocketnestSDK.webView(
                 activity = this,
                 url = BASE_URL,
-                accessToken = "",
                 onSuccess = {
                     appendLog("✅ Success")
                 },
@@ -38,7 +37,6 @@ class MainActivity : AppCompatActivity() {
         findViewById<Button>(R.id.launchSdkFragmentButton).setOnClickListener {
             val frag = PocketnestSDK.newWebViewFragment(
                 url = BASE_URL,
-                accessToken = "",
                 onSuccess = { appendLog("✅ Success (Fragment)") },
                 onExit = { appendLog("🚪 Exit (Fragment)") }
             )

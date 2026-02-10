@@ -9,9 +9,12 @@ object Config {
     private var redirectUrl: String = "pocketnestredirecturi" // Static value
     private var accessToken: String? = null
 
-    fun init(url: String, accessToken:String?) {
+    fun init(url: String, accessToken:String?, redirectUri: String?) {
         this.url = url
         this.accessToken = accessToken
+        if (!redirectUri.isNullOrEmpty()) {
+            this.redirectUrl = redirectUri
+        }
     }
 
     internal fun requireUrl(): String =

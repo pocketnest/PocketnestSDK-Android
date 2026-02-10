@@ -33,6 +33,7 @@ object PocketnestSDK {
      * @param activity      The parent [Activity] used to start the flow.
      * @param url           The URL to load in the WebView.
      * @param accessToken   Optional access token to automatically authenticate the session.
+     * @param redirectUri   Optional This is only required if you want to use your own unique URL scheme and should match those you set in manifestPlaceholders, otherwise it will be automatically set to default value
      * @param onSuccess     Callback invoked when the WebView flow is presented
      * @param onExit        Callback invoked when the WebView flow is closed or dismissed.
      */
@@ -40,14 +41,15 @@ object PocketnestSDK {
     fun webView(
         activity: Activity,
         url: String,
-        accessToken:String?,
-        onSuccess: (() -> Unit)?,
-        onExit: (() -> Unit)?
+        accessToken:String?  = null,
+        redirectUri:String?  = null,
+        onSuccess: (() -> Unit)?  = null,
+        onExit: (() -> Unit)?  = null
     ) {
         onSuccessCb = onSuccess
         onExitCb = onExit
 
-        Config.init(url, accessToken);
+        Config.init(url, accessToken, redirectUri);
         Config.launchMode = Config.LaunchMode.ACTIVITY
         activity.startActivity(Intent(activity, WebViewActivity::class.java))
     }
@@ -58,6 +60,7 @@ object PocketnestSDK {
      *
      * @param url           The URL to load in the WebView.
      * @param accessToken   Optional access token to automatically authenticate the session.
+     * @param redirectUri   Optional This is only required if you want to use your own unique URL scheme and should match those you set in manifestPlaceholders, otherwise it will be automatically set to default value
      * @param onSuccess     Callback invoked when the WebView flow is presented
      * @param onExit        Callback invoked when the WebView flow is closed or dismissed.
      */
@@ -65,13 +68,14 @@ object PocketnestSDK {
     @JvmStatic
     fun newWebViewFragment(
         url: String,
-        accessToken: String?,
+        accessToken: String?  = null,
+        redirectUri: String?  = null,
         onSuccess: (() -> Unit)? = null,
         onExit:    (() -> Unit)? = null
     ): Fragment {
         onSuccessCb = onSuccess
         onExitCb = onExit
-        Config.init(url, accessToken)
+        Config.init(url, accessToken, redirectUri)
         Config.launchMode = Config.LaunchMode.FRAGMENT
         return PocketnestWebViewFragment.newInstance()
     }
